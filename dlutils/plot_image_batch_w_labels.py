@@ -15,6 +15,8 @@ import matplotlib
 matplotlib.use('Agg')  # b/c matplotlib is such a great piece of software ;) - needed to work on ubuntu
 from matplotlib import pyplot as plt
 
+matplotlib.rcParams.update({'axes.titlesize': 4})
+
 
 def plot_batch(image_batch, figure_path, label_batch=None):
     """
@@ -25,10 +27,10 @@ def plot_batch(image_batch, figure_path, label_batch=None):
     :param label_batch: Batch of labels corresponding to `image_batch`.
        Labels will be displayed along w/ their corresponding image.
     """
-    if label_batch:
-        assert image_batch.shape[0] == label_batch.shape[0], 'Their must be a label for each image to be plotted.'
+    if label_batch is not None:
+        assert len(image_batch) == len(label_batch), 'Their must be a label for each image to be plotted.'
 
-    batch_size = image_batch.shape[0]
+    batch_size = len(image_batch)
 
     # plot images in rows and columns
     nb_rows = batch_size // 10 + 1  # each row will have 10 images, last row will have the rest of images in the batch
