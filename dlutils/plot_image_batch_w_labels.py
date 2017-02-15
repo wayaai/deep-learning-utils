@@ -11,6 +11,7 @@ etc...
 import os
 
 import matplotlib
+import numpy as np
 
 matplotlib.use('Agg')  # b/c matplotlib is such a great piece of software ;) - needed to work on ubuntu
 from matplotlib import pyplot as plt
@@ -32,6 +33,10 @@ def plot_batch(image_batch, figure_path, label_batch=None):
 
     batch_size = len(image_batch)
     assert batch_size >= 1
+
+    # for gray scale images if image_batch.shape == (img_height, img_width, 1) plt requires this to be reshaped
+    if image_batch.shape[-1] == 1:
+        image_batch = np.reshape(image_batch, newshape=image_batch[:-1])
 
     # plot images in rows and columns
     nb_rows = batch_size // 10 + 1  # each row will have 10 images, last row will have the rest of images in the batch
