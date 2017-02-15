@@ -31,12 +31,16 @@ def plot_batch(image_batch, figure_path, label_batch=None):
         assert len(image_batch) == len(label_batch), 'Their must be a label for each image to be plotted.'
 
     batch_size = len(image_batch)
+    assert batch_size >= 1
 
     # plot images in rows and columns
     nb_rows = batch_size // 10 + 1  # each row will have 10 images, last row will have the rest of images in the batch
     nb_columns = 10
 
-    _, ax = plt.subplots(nb_rows, nb_columns, sharex=True, sharey=True)
+    # if `batch_size` == 1, plt.subplots will throw: TypeError: 'AxesSubplot' object does not support indexing
+    # unless squeeze=False
+    squeeze = False if batch_size == 1 else True
+    _, ax = plt.subplots(nb_rows, nb_columns, sharex=True, sharey=True, squeeze=squeeze)
 
     for i in range(nb_rows):
         for j in range(nb_columns):
