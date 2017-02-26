@@ -41,13 +41,11 @@ def plot_batch(image_batch, figure_path, label_batch=None):
         image_batch = np.reshape(image_batch, newshape=image_batch.shape[:-1])
 
     # plot images in rows and columns
-    nb_rows = batch_size // 10 + 1  # each row will have 10 images, last row will have the rest of images in the batch
+    # `+ 2` prevents plt.subplots from throwing: `TypeError: 'AxesSubplot' object does not support indexing` when batch_size < 10
+    nb_rows = batch_size // 10 + 2  # each row will have 10 images, last row will have the rest of images in the batch
     nb_columns = 10
-
-    # if `batch_size` == 1, plt.subplots will throw: TypeError: 'AxesSubplot' object does not support indexing
-    # unless squeeze=False
-    squeeze = False if batch_size == 1 else True
-    _, ax = plt.subplots(nb_rows, nb_columns, sharex=True, sharey=True, squeeze=squeeze)
+    
+    _, ax = plt.subplots(nb_rows, nb_columns, sharex=True, sharey=True)
 
     for i in range(nb_rows):
         for j in range(nb_columns):
