@@ -19,7 +19,7 @@ from matplotlib import pyplot as plt
 matplotlib.rcParams.update({'axes.titlesize': 4})
 
 
-def plot_batch(image_batch, figure_path, label_batch=None):
+def plot_batch(image_batch, figure_path, label_batch=None, vmin=-1.0, vmax=1.0):
     """
     Plots a batch of images and their corresponding label(s)/annotations, saving the plot to disc.
 
@@ -50,7 +50,7 @@ def plot_batch(image_batch, figure_path, label_batch=None):
     for i in range(nb_rows):
         for j in range(nb_columns):
             try:
-                ax[i][j].imshow(image_batch[i * nb_columns + j])
+                ax[i][j].imshow(image_batch[i * nb_columns + j], vmin=vmin, vmax=vmax, interpolation='lanczos')
                 ax[i][j].set_title(label_batch[i * nb_columns + j])
                 ax[i][j].set_axis_off()
             except IndexError:
