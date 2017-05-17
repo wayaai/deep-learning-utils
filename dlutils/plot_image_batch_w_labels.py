@@ -59,7 +59,8 @@ def plot_batch(image_batch, figure_path, label_batch=None, vmin=0, vmax=255, sca
                     x *= 255
 
                 ax[i][j].imshow(x.astype('uint8'), vmin=vmin, vmax=vmax, interpolation='lanczos')
-                ax[i][j].set_title(label_batch[i * nb_columns + j])
+                if label_batch is not None:
+                    ax[i][j].set_title(label_batch[i * nb_columns + j])
                 ax[i][j].set_axis_off()
             except IndexError:
                 break
