@@ -16,7 +16,7 @@ import numpy as np
 matplotlib.use('Agg')  # b/c matplotlib is such a great piece of software ;) - needed to work on ubuntu
 from matplotlib import pyplot as plt
 
-matplotlib.rcParams.update({'axes.titlesize': 2})
+matplotlib.rcParams.update({'axes.titlesize': 1})
 
 
 def plot_batch(image_batch, figure_path, label_batch=None, vmin=0, vmax=255, scale=True):
